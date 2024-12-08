@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form with Validation</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+  <img src="abes.jpg" width="100%">
+    <form id="dataForm" style="text-align: center;" onsubmit="return validateForm()">
+        <table>
+            <tr>
+                <th>Name</th>
+                <td>
+                    <input 
+                        type="text" 
+                        id="nameInput" 
+                        name="name" 
+                        placeholder="Enter Name" 
+                        pattern="[A-Za-z\s]+" 
+                        title="Name should contain only letters and spaces."
+                        required>
+                </td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>
+                    <input 
+                        type="password" 
+                        id="passwordInput" 
+                        name="password" 
+                        placeholder="Enter Password" 
+                        minlength="6"
+                        title="Password must be at least 6 characters long."
+                        required>
+                </td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>
+                    <input 
+                        type="tel" 
+                        id="phoneInput" 
+                        name="phone" 
+                        placeholder="Enter Phone Number" 
+                        pattern="\d{10}" 
+                        title="Phone number must be 10 digits long."
+                        required>
+                </td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>
+                    <input 
+                        type="email" 
+                        id="emailInput" 
+                        name="email" 
+                        placeholder="Enter Email" 
+                        title="Enter a valid email address."
+                        required>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <button type="submit">Submit</button>
+        <div id="errorMessage" class="error"></div>
+    </form>
+
+    <script>
+        function validateForm() {
+            const nameInput = document.getElementById("nameInput");
+            const passwordInput = document.getElementById("passwordInput");
+            const phoneInput = document.getElementById("phoneInput");
+            const emailInput = document.getElementById("emailInput");
+            const errorMessage = document.getElementById("errorMessage");
+
+            // Validate Name
+            if (!/^[A-Za-z\s]+$/.test(nameInput.value)) {
+                errorMessage.textContent = "Error: Name must contain only letters and spaces.";
+                return false;
+            }
+
+            // Validate Password
+            if (passwordInput.value.length < 6) {
+                errorMessage.textContent = "Error: Password must be at least 6 characters long.";
+                return false;
+            }
+
+            // Validate Phone Number
+            if (!/^\d{10}$/.test(phoneInput.value)) {
+                errorMessage.textContent = "Error: Phone number must be 10 digits long.";
+                return false;
+            }
+
+            // Validate Email
+            if (!/^\S+@\S+\.\S+$/.test(emailInput.value)) {
+                errorMessage.textContent = "Error: Please enter a valid email address.";
+                return false;
+            }
+
+            errorMessage.textContent = ""; // Clear any previous errors
+            alert("Form submitted successfully!");
+            return true;
+        }
+    </script>
+</body>
+</html>
